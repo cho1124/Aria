@@ -1,5 +1,8 @@
 # Aria — AI-assisted DAW
 
+***A.R.I.A.*** — ***A**I **R**esponsive **I**mprovisation **A**telier*
+*이탈리아어 Aria(오페라의 솔로 보컬 멜로디)와 약어가 겹치는 의도된 이중 의미.*
+
 [![Build](https://github.com/cho1124/Aria/actions/workflows/build.yml/badge.svg)](https://github.com/cho1124/Aria/actions/workflows/build.yml)
 [![Sync README](https://github.com/cho1124/Aria/actions/workflows/sync-readme.yml/badge.svg)](https://github.com/cho1124/Aria/actions/workflows/sync-readme.yml)
 [![Last Commit](https://img.shields.io/github/last-commit/cho1124/Aria/main)](https://github.com/cho1124/Aria/commits/main)
@@ -10,6 +13,7 @@
 [![C++](https://img.shields.io/badge/C%2B%2B-17-00599C)](https://en.cppreference.com/w/cpp/17)
 
 > **Aria** *(이탈리아어, 오페라의 솔로 보컬 멜로디)* — AI가 작곡의 솔리스트로 작동하는 DAW.
+> 약어로는 **A**I **R**esponsive **I**mprovisation **A**telier — AI가 사용자의 입력에 반응하는 즉흥 작곡 공방.
 > FL Studio / Ableton 류 DAW를 AI 작곡 보조 기능과 함께 처음부터 구현하는 학습 / 포트폴리오 프로젝트.
 
 ---

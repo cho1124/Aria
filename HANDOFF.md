@@ -29,6 +29,9 @@ layer_L4_status: passed
 layer_L4_note: "로컬 빌드 + CI 자동 빌드 모두 통과 (Aria.exe 24.54MB)"
 
 recent_finding: "Layer 3 적대적 검증이 Claude 추천을 폐기시킨 첫 사례 - MAV 레포 등록됨"
+
+# 프로젝트 정체성 (변경 시 README 자동 갱신)
+backronym: "AI Responsive Improvisation Atelier"
 ---
 
 # Aria - Session Handoff
