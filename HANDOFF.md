@@ -46,9 +46,9 @@
 - [x] CMakeLists.txt 작성
 - [x] src/ 디렉토리 + Hello Audio 최소 구현
 - [x] 메모리 등록 (project_aria.md + MEMORY.md 인덱스)
-- [ ] cmake configure 성공
-- [ ] Debug 빌드 컴파일 성공
-- [ ] 첫 커밋
+- [x] **cmake configure 성공** (MSVC 19.44, 29.8s)
+- [x] **Debug 빌드 컴파일 성공** (Aria.exe 24.54MB, JUCE 모듈 전체 빌드)
+- [x] 첫 커밋 (`cfc353a`) + GitHub push
 - [ ] **[집에서] 실행 + 청취 검증** → AUDIO_VERIFICATION_QUEUE 참고
 
 ### What Claude Claims to Have Done (Codex 검증 대상)
@@ -62,27 +62,35 @@
 | `src/SineSynth.{h,cpp}` | SineSound + SineVoice + ADSR | `juce::ADSR` `juce::MidiMessage::getMidiNoteInHertz` 시그니처 |
 | `External/JUCE` | submodule, tag 8.0.12, commit 29396c2 | 검증됨 (`git describe --tags` → 8.0.12) |
 
-### Known Issues / 의심점
+### Known Issues / 의심점 (모두 해소됨)
 
-#### 환각 가능성 (우선순위 ↑)
-1. **JUCE 8 Font API**: `juce::Font(juce::FontOptions(20.0f, juce::Font::bold))` — JUCE 8에서 FontOptions로 바뀐 것은 맞지만 정확한 시그니처 미검증. 컴파일 에러 시 1순위 의심.
-2. **`juce_generate_juce_header(Aria)`**: 명령 이름 정확성. JUCE 8 CMake API에서 이 함수가 존재하는지.
-3. **`ProjectInfo::projectName`**: `juce_generate_juce_header`가 생성하는 매크로/구조체 이름.
+#### 환각 가능성 → 모두 빌드 통과로 검증됨
+1. ✅ **JUCE 8 Font API**: `juce::Font(juce::FontOptions(20.0f, juce::Font::bold))` — 정상 컴파일.
+2. ✅ **`juce_generate_juce_header(Aria)`**: CMake 매크로 존재 확인.
+3. ✅ **`ProjectInfo::projectName`**: 매크로 정상 생성.
 
 #### 환경 노이즈 (무시 가능)
-- PowerShell 5.1에서 `git submodule add`가 NativeCommandError 던졌지만 실제 동작은 정상 (CLAUDE.md 가이드라인 참고).
-- JUCE 8.0.12 Projucer 기본 익스포터가 VS 2026이지만, CMake에서는 `-G "Visual Studio 17 2022"`로 명시하므로 무관.
+- PowerShell 5.1에서 git/cmake가 NativeCommandError 던지지만 실제 동작은 정상 (CLAUDE.md 가이드라인 참고, exit code 0만 신뢰).
+- cmake.exe가 PATH에 없음 → 절대 경로로 호출 중. `C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe`
+- (선택) 향후 편의를 위해 PATH 추가 또는 VS Developer PowerShell 진입 고려.
 
-### Next Steps (순서)
-1. `cmake -B build -G "Visual Studio 17 2022" -A x64` 실행
-2. configure 성공 시 → `cmake --build build --config Debug`
-3. **configure or 빌드 실패 시**:
-   - 에러 메시지 → Codex 환각 검증
-   - Web Verify로 JUCE 8 정확한 API 재확인
-   - 정정 후 재시도
-4. 빌드 성공 시 → 첫 커밋 (`feat: initial JUCE 8 setup with sine synth Hello Audio`)
-5. (영준님이 GitHub 리모트 결정 시) → push
-6. `AUDIO_VERIFICATION_QUEUE.md`에 commit hash 기록
+### Next Steps (Session 2 시작 시)
+1. **[집] 클론 + 빌드 + 실행**:
+   ```powershell
+   git clone --recurse-submodules https://github.com/cho1124/Aria.git
+   cd Aria
+   # VS 2022 + Desktop development with C++ 워크로드 필요
+   cmake -B build -G "Visual Studio 17 2022" -A x64
+   cmake --build build --config Debug
+   .\build\Aria_artefacts\Debug\Aria.exe
+   ```
+2. `AUDIO_VERIFICATION_QUEUE.md`의 항목 1 (Hello Audio) 청취 검증
+3. 청취 통과 시 → `AUDIO_VERIFIED.md`로 archive (없으면 신규 생성)
+4. Session 2 본 작업:
+   - 멀티 트랙 기반 (TrackController + 채널 수 N개)
+   - 추가 신디 (Sawtooth, Square — 신디 코어 추상화)
+   - 또는 시퀀서 prototype (마디 단위 노트 입력)
+   - 결정은 영준님 선택
 
 ### For Codex (다음 인계 시)
 - 위 "환각 가능성" 1~3번 우선 검증.
@@ -96,4 +104,24 @@
 ---
 
 ## Last commit
-TBD (첫 커밋 후 갱신)
+- `cfc353a` (2026-05-19) — feat: Aria 프로젝트 초기 스캐폴드 (JUCE 8.0.12 + CMake)
+- GitHub: https://github.com/cho1124/Aria (private)
+- Branch: `main` (tracking origin/main)
+
+## 다음 세션 시작 시
+**[집] 환경 준비**:
+```powershell
+# 처음 한 번만
+git clone --recurse-submodules https://github.com/cho1124/Aria.git
+cd Aria
+# VS 2022 Community + "Desktop development with C++" 워크로드 필요
+cmake -B build -G "Visual Studio 17 2022" -A x64
+cmake --build build --config Debug
+.\build\Aria_artefacts\Debug\Aria.exe
+```
+
+**[회사] 다음 세션 진입 체크리스트**:
+1. C++ 워크로드 설치 완료 여부 확인 (영준님)
+2. `cmake -B build -G "Visual Studio 17 2022" -A x64` 실행
+3. configure 성공 시 → 빌드 시도
+4. 빌드 에러 발생 시 → 위 "환각 가능성" 1~3번 우선 의심 → Codex 검증

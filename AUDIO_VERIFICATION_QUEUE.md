@@ -9,8 +9,10 @@
 
 ### [PENDING] Hello Audio (Session 1)
 
-- **Commit**: `<TBD>` (Session 1 첫 커밋)
+- **Commit**: `cfc353a` — feat: Aria 프로젝트 초기 스캐폴드 (JUCE 8.0.12 + CMake)
 - **Date queued**: 2026-05-19
+- **빌드 상태**: ✅ 회사 PC에서 컴파일 성공 (Aria.exe 24.54MB)
+- **회사 빌드 환경**: VS 2022 Community + C++ Desktop 워크로드, MSVC 19.44, CMake 3.31.6, Windows 11
 - **빌드 명령**:
   ```powershell
   cmake -B build -G "Visual Studio 17 2022" -A x64
