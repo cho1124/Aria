@@ -15,8 +15,8 @@ permissions:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    # 자동 commit 무한 루프 방지: github-actions 봇이 만든 commit은 skip
-    if: ${{ github.actor != 'github-actions[bot]' && !contains(github.event.head_commit.message, 'docs(README): auto-sync') }}
+    # 자동 commit 무한 루프 방지: bot push는 actor가 'github-actions[bot]'이므로 skip
+    if: github.actor != 'github-actions[bot]'
 
     steps:
       - name: Checkout
