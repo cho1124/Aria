@@ -21,16 +21,23 @@
 
 이 정체성은 [Layer 3 적대적 검증](docs/AI_INTEGRATION_VERIFICATION.md)을 통해 검증된 결과다.
 
-## 현재 상태 (2026-05-19)
+## 현재 상태
 
-| 항목 | 상태 |
+<!-- AUTO:STATUS:START -->
+*아래 표는 [HANDOFF.md](HANDOFF.md) frontmatter에서 자동 동기화됩니다 (push 시 GitHub Actions).*
+
+| 항목 | 값 |
 |------|------|
-| 환경 세팅 | ✅ Session 1 완료 |
-| 사인 신디 + 가상 키보드 | ✅ 컴파일 통과 (`Aria.exe` 24.54MB) |
-| CI (GitHub Actions Windows) | ✅ 자동 빌드 + 아티팩트 업로드 |
-| Layer 2 정적 검토 (Gemini) | ✅ [VERIFICATION.md](VERIFICATION.md) - 3건 발견/수정 |
-| Layer 3 적대적 검증 (AI 통합 방향) | ✅ [AI_INTEGRATION_VERIFICATION.md](docs/AI_INTEGRATION_VERIFICATION.md) - Claude 초안 폐기 + 새 방향 채택 |
-| 청취 검증 (집에서) | ⏳ [AUDIO_VERIFICATION_QUEUE.md](AUDIO_VERIFICATION_QUEUE.md) |
+| 현재 세션 | Session 1 |
+| 세션 포커스 | 환경 세팅 + Layer 2 검증 + Layer 3 검증 |
+| 세션 상태 | ✅ completed |
+| 마지막 세션 날짜 | 2026-05-19 |
+| 마지막 commit | [`acc8ed8`](https://github.com/cho1124/Aria/commit/acc8ed8) |
+| 빌드 (로컬) | ✅ passed |
+| CI | ✅ passed |
+| 청취 검증 | ⏳ pending |
+| 다음 액션 | 집에서 실행 + 청취 검증 (AUDIO_VERIFICATION_QUEUE 참조) |
+<!-- AUTO:STATUS:END -->
 
 다음 세션 시작점은 [HANDOFF.md](HANDOFF.md)를 먼저 읽으면 된다.
 

@@ -1,6 +1,21 @@
+---
+# AUTO-SYNC: 이 frontmatter는 README.md의 AUTO:STATUS 영역에 자동 반영됨.
+# .github/workflows/sync-readme.yml + .github/scripts/sync_readme.py 가 처리.
+session: 1
+session_focus: "환경 세팅 + Layer 2 검증 + Layer 3 검증"
+session_status: completed
+last_session_date: "2026-05-19"
+last_commit: acc8ed8
+build_status: passed
+ci_status: passed
+audio_verification: pending
+next_action: "집에서 실행 + 청취 검증 (AUDIO_VERIFICATION_QUEUE 참조)"
+---
+
 # Aria - Session Handoff
 
 > 매 세션 끝에 갱신됨. 새 세션 시작 시 이 문서를 첫 번째로 읽고 작업 이어가기.
+> 상단 YAML frontmatter는 README.md 자동 동기화의 source of truth (수정 시 README도 자동 갱신됨).
 
 ## 핸드오프 프로토콜 (Reference)
 
