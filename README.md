@@ -1,6 +1,9 @@
 # Aria — AI-assisted DAW
 
 [![Build](https://github.com/cho1124/Aria/actions/workflows/build.yml/badge.svg)](https://github.com/cho1124/Aria/actions/workflows/build.yml)
+[![Sync README](https://github.com/cho1124/Aria/actions/workflows/sync-readme.yml/badge.svg)](https://github.com/cho1124/Aria/actions/workflows/sync-readme.yml)
+[![Last Commit](https://img.shields.io/github/last-commit/cho1124/Aria/main)](https://github.com/cho1124/Aria/commits/main)
+[![Commits](https://img.shields.io/github/commit-activity/m/cho1124/Aria)](https://github.com/cho1124/Aria/commits/main)
 [![License](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE)
 [![JUCE](https://img.shields.io/badge/JUCE-8.0.12-orange)](https://juce.com)
 [![CMake](https://img.shields.io/badge/CMake-3.22%2B-064F8C)](https://cmake.org)
@@ -28,15 +31,18 @@
 
 | 항목 | 값 |
 |------|------|
-| 현재 세션 | Session 1 |
+| 현재 세션 | Session 1 / 12 |
 | 세션 포커스 | 환경 세팅 + Layer 2 검증 + Layer 3 검증 |
 | 세션 상태 | ✅ completed |
+| 현재 마일스톤 | Hello Audio (사인 폴리신디) |
+| 다음 마일스톤 | Session 2: 신디 코어 추상화 + Saw/Square 추가 |
 | 마지막 세션 날짜 | 2026-05-19 |
 | 마지막 commit | [`acc8ed8`](https://github.com/cho1124/Aria/commit/acc8ed8) |
 | 빌드 (로컬) | ✅ passed |
 | CI | ✅ passed |
 | 청취 검증 | ⏳ pending |
 | 다음 액션 | 집에서 실행 + 청취 검증 (AUDIO_VERIFICATION_QUEUE 참조) |
+| 최근 발견 | Layer 3 적대적 검증이 Claude 추천을 폐기시킨 첫 사례 - MAV 레포 등록됨 |
 <!-- AUTO:STATUS:END -->
 
 다음 세션 시작점은 [HANDOFF.md](HANDOFF.md)를 먼저 읽으면 된다.
@@ -97,14 +103,18 @@ CMake가 PATH에 있으면 그냥 `cmake`로 호출 가능. CI에서는 자동 P
 └──────────────────────────────────────────┘
 ```
 
-### Layer별 가동 실적 (Session 1)
+### Layer별 가동 실적
 
-| Layer | 실적 | 가치 |
+<!-- AUTO:VALIDATION:START -->
+*아래 표는 [HANDOFF.md](HANDOFF.md) frontmatter의 layer_*_status / layer_*_note 에서 자동 동기화됩니다.*
+
+| Layer | 상태 | 비고 |
 |---|---|---|
-| L1 | ✅ JUCE 8.0.12 + CMake API 사전 확인 | 표준 |
-| L2 | ✅ Gemini 3 Pro로 3건 발견 (MidiBuffer 힙 할당 등) → 전건 수정 | **본전 입증** — 청취 시 진짜 dropout 유발할 결함 |
-| L3 | ✅ AI 통합 아키텍처 검증 → Claude 추천 전건 패배 + 새 패러다임 채택 | **두 번째 본전** — 프로젝트 방향 전환 |
-| L4 | ✅ 로컬 + CI 자동 빌드 | 표준 |
+| L1 Web Verify | ✅ passed | JUCE 8.0.12 / CMake API 사전 확인 |
+| L2 Code Review | ✅ passed | Gemini 3 Pro로 3건 발견 (MidiBuffer 힙 할당 등) → 전건 수정. VERIFICATION.md |
+| L3 Adversarial Triad | ✅ passed | Claude 옵션 A 전건 패배 → LLM Copilot 채택. docs/AI_INTEGRATION_VERIFICATION.md |
+| L4 Build Gate | ✅ passed | 로컬 빌드 + CI 자동 빌드 모두 통과 (Aria.exe 24.54MB) |
+<!-- AUTO:VALIDATION:END -->
 
 검증 사례 등록: [multi-agent-adversarial-verification/docs/experiments/2026-05-19-Aria-DAW-AI-통합-아키텍처-검증/](https://github.com/cho1124/multi-agent-adversarial-verification/tree/master/docs/experiments/2026-05-19-Aria-DAW-AI-%ED%86%B5%ED%95%A9-%EC%95%84%ED%82%A4%ED%85%8D%EC%B2%98-%EA%B2%80%EC%A6%9D)
 

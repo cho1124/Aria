@@ -1,7 +1,8 @@
 ---
-# AUTO-SYNC: 이 frontmatter는 README.md의 AUTO:STATUS 영역에 자동 반영됨.
+# AUTO-SYNC: 이 frontmatter는 README.md의 AUTO:* 영역들에 자동 반영됨.
 # .github/workflows/sync-readme.yml + .github/scripts/sync_readme.py 가 처리.
 session: 1
+session_total: 12
 session_focus: "환경 세팅 + Layer 2 검증 + Layer 3 검증"
 session_status: completed
 last_session_date: "2026-05-19"
@@ -10,6 +11,24 @@ build_status: passed
 ci_status: passed
 audio_verification: pending
 next_action: "집에서 실행 + 청취 검증 (AUDIO_VERIFICATION_QUEUE 참조)"
+
+# 마일스톤 추적 (AUTO:ROADMAP 영역에 반영)
+current_milestone: "Hello Audio (사인 폴리신디)"
+next_milestone: "Session 2: 신디 코어 추상화 + Saw/Square 추가"
+
+# 검증 계층 가동 실적 (AUTO:VALIDATION 영역에 반영)
+# 형식: layer_<L1|L2|L3|L4>_status: passed | failed | skipped | not_run
+# 형식: layer_<...>_note: "한 줄 메모"
+layer_L1_status: passed
+layer_L1_note: "JUCE 8.0.12 / CMake API 사전 확인"
+layer_L2_status: passed
+layer_L2_note: "Gemini 3 Pro로 3건 발견 (MidiBuffer 힙 할당 등) → 전건 수정. VERIFICATION.md"
+layer_L3_status: passed
+layer_L3_note: "Claude 옵션 A 전건 패배 → LLM Copilot 채택. docs/AI_INTEGRATION_VERIFICATION.md"
+layer_L4_status: passed
+layer_L4_note: "로컬 빌드 + CI 자동 빌드 모두 통과 (Aria.exe 24.54MB)"
+
+recent_finding: "Layer 3 적대적 검증이 Claude 추천을 폐기시킨 첫 사례 - MAV 레포 등록됨"
 ---
 
 # Aria - Session Handoff
