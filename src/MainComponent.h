@@ -21,6 +21,7 @@ private:
     juce::MidiKeyboardComponent keyboardComponent;
     juce::Synthesiser synth;
     juce::Label titleLabel;
+    juce::MidiBuffer incomingMidi;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MainComponent)
 };

@@ -16,6 +16,8 @@ public:
 
     bool canPlaySound(juce::SynthesiserSound* sound) override;
 
+    void setCurrentPlaybackSampleRate(double newRate) override;
+
     void startNote(int midiNoteNumber,
                    float velocity,
                    juce::SynthesiserSound* sound,

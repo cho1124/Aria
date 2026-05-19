@@ -10,6 +10,14 @@ bool SineVoice::canPlaySound(juce::SynthesiserSound* sound)
     return dynamic_cast<SineSound*>(sound) != nullptr;
 }
 
+void SineVoice::setCurrentPlaybackSampleRate(double newRate)
+{
+    juce::SynthesiserVoice::setCurrentPlaybackSampleRate(newRate);
+
+    if (newRate > 0.0)
+        adsr.setSampleRate(newRate);
+}
+
 void SineVoice::startNote(int midiNoteNumber,
                           float velocity,
                           juce::SynthesiserSound* /*sound*/,
@@ -22,7 +30,6 @@ void SineVoice::startNote(int midiNoteNumber,
     const auto cyclesPerSample = cyclesPerSecond / getSampleRate();
     angleDelta = cyclesPerSample * juce::MathConstants<double>::twoPi;
 
-    adsr.setSampleRate(getSampleRate());
     adsr.noteOn();
 }
 
@@ -56,6 +63,8 @@ void SineVoice::renderNextBlock(juce::AudioBuffer<float>& outputBuffer,
             outputBuffer.addSample(channel, startSample + sample, currentSample);
 
         currentAngle += angleDelta;
+        if (currentAngle >= juce::MathConstants<double>::twoPi)
+            currentAngle -= juce::MathConstants<double>::twoPi;
     }
 
     if (! adsr.isActive())

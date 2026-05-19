@@ -33,7 +33,7 @@ void MainComponent::getNextAudioBlock(const juce::AudioSourceChannelInfo& buffer
 {
     bufferToFill.clearActiveBufferRegion();
 
-    juce::MidiBuffer incomingMidi;
+    incomingMidi.clear();
     keyboardState.processNextMidiBuffer(incomingMidi,
                                         bufferToFill.startSample,
                                         bufferToFill.numSamples,

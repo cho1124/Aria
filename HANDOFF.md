@@ -69,10 +69,21 @@
 2. ✅ **`juce_generate_juce_header(Aria)`**: CMake 매크로 존재 확인.
 3. ✅ **`ProjectInfo::projectName`**: 매크로 정상 생성.
 
+#### Layer 2 (Gemini) 정적 검토 결과 — 모두 수정 반영됨
+1. ✅ **MidiBuffer 멤버 변수화** (was: audio thread heap allocation 위험)
+2. ✅ **setCurrentPlaybackSampleRate override** (was: ADSR 매 노트 재계산)
+3. ✅ **Phase wrap-around** (was: double 정밀도 장기 발산)
+
+상세는 `VERIFICATION.md` 참조.
+
 #### 환경 노이즈 (무시 가능)
 - PowerShell 5.1에서 git/cmake가 NativeCommandError 던지지만 실제 동작은 정상 (CLAUDE.md 가이드라인 참고, exit code 0만 신뢰).
 - cmake.exe가 PATH에 없음 → 절대 경로로 호출 중. `C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe`
 - (선택) 향후 편의를 위해 PATH 추가 또는 VS Developer PowerShell 진입 고려.
+
+#### CI 정보성 경고 (future TODO, 빌드 영향 없음)
+- Node.js 20 deprecated (2026-06-02 강제 Node 24) — `actions/checkout@v4`, `upload-artifact@v4` 영향. `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` env로 미리 opt-in 가능.
+- `windows-latest` → `windows-2025-vs2026` 재라우팅 (2026-06-15). 빌드 generator 영향 가능성 → 그때 재검토.
 
 ### Next Steps (Session 2 시작 시)
 1. **[집] 클론 + 빌드 + 실행**:
@@ -103,10 +114,27 @@
 
 ---
 
-## Last commit
-- `cfc353a` (2026-05-19) — feat: Aria 프로젝트 초기 스캐폴드 (JUCE 8.0.12 + CMake)
-- GitHub: https://github.com/cho1124/Aria (private)
-- Branch: `main` (tracking origin/main)
+## Last commits (Session 1)
+- `cfc353a` — feat: Aria 프로젝트 초기 스캐폴드 (JUCE 8.0.12 + CMake)
+- `4909cbe` — chore: Session 1 빌드 성공 반영
+- `78f794f` — ci: GitHub Actions Windows 빌드 워크플로우
+- (다음) — fix: Gemini Layer 2 검토 반영 (audio thread safety + best practice)
+
+GitHub: https://github.com/cho1124/Aria (private)
+Branch: `main` (tracking origin/main)
+CI: https://github.com/cho1124/Aria/actions
+
+## Validation Stack 가동 결과 (Session 1)
+| Layer | 가동 | 결과 |
+|---|---|---|
+| L4 Build Gate (회사) | ✅ | Aria.exe 24.54MB |
+| L4 Build Gate (CI) | ✅ | run 26078750309, 5m6s, artefact 업로드 |
+| L2 Codex Review | ❌ | codex:codex-rescue 서브에이전트 sandbox 차단 + 임베드 무시 환각 → fallback |
+| L2 Gemini Review | ✅ | 3건 발견 (audio thread + best practice), 모두 수정 반영 |
+| L1 Web Verify | ✅ | JUCE 8.0.12 / CMake 사전 확인 |
+| L3 Adversarial Triad | — | 미발동 (이번 세션엔 큰 설계 갈림길 없음) |
+
+→ [[feedback_layer2_codex_vs_gemini]] 메모리에 패턴 저장됨
 
 ## 다음 세션 시작 시
 **[집] 환경 준비**:
