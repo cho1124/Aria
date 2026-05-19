@@ -1,0 +1,56 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 1
+
+      - name: Show environment
+        shell: pwsh
+        run: |
+          cmake --version
+          Write-Output "MSVC version:"
+          & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property catalog_productDisplayVersion
+
+      - name: Configure CMake
+        run: cmake -B build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build (Debug)
+        run: cmake --build build --config Debug --parallel
+
+      - name: Verify artefact
+        shell: pwsh
+        run: |
+          $exePath = "build\Aria_artefacts\Debug\Aria.exe"
+          if (-not (Test-Path $exePath)) {
+            Write-Error "Aria.exe not found at $exePath"
+            exit 1
+          }
+          $sizeMB = [math]::Round((Get-Item $exePath).Length / 1MB, 2)
+          Write-Output "Aria.exe built: $sizeMB MB"
+          if ($sizeMB -lt 5) {
+            Write-Error "Aria.exe seems too small ($sizeMB MB), expected 20+ MB"
+            exit 1
+          }
+
+      - name: Upload artefact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Aria-Debug-Windows-x64
+          path: build/Aria_artefacts/Debug/Aria.exe
+          retention-days: 7
+          if-no-files-found: error
